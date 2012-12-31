@@ -1,5 +1,5 @@
 <?php
 
-echo "Testing MoneXy API";
+echo "Testing MoneXy API !!!";
 
 ?>
