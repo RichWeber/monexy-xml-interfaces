@@ -12,6 +12,61 @@ class Monexy {
 	private $SecretKey = 'z80AhqYIuFP1';
 	
 	/*
+	 * 
+	 */
+	# request to server
+	function _request($url, $xml) {
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+		//curl_setopt($ch, CURLOPT_INTERFACE, "87.118.97.138");
+	
+		$result = curl_exec($ch);
+		if(curl_errno($ch) != 0) {
+			$result = "";
+			$result .= "<errno>".curl_errno($ch)."</errno>\n";
+			$result .= "<error>".curl_error($ch)."</error>\n";
+		};
+		curl_close($ch);
+	
+		return $result;
+	}
+	/*
+	 * 
+	 */
+	public  function operation($data)
+	{
+		//
+		$result = "";
+		
+		foreach($data as $k => $v) {
+			$value = is_array($v) ? "\n".$this->operation($v) : $this->_change_encoding($v, "HTML-ENTITIES", true);
+			$result .= "<$k>$value</$k>\n";
+		}
+		
+		return $result;
+	}
+	
+	/*
+	 * 
+	 */
+	public function xml($typeAPI, $date)
+	{
+		$xml = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
+			<Auth>
+				<ApiName>' . $this->ApiName . '</ApiName>
+				<ApiHash>' . $this->ApiHash . '</ApiHash>
+			</Auth>'
+			. $this->operation($data) .
+		'</monexyApi>';
+		
+		return $xml;
+	} 
+	
+	
+	/*
 	 * Создаем MkTime и ApiHash
 	 */
 	public function MkTime()
