@@ -5,28 +5,21 @@
  */
 
 class Monexy {
-	
-	var $encoding = "UTF-8";
-	public $ApiName = 'testapirichweber';
+
 	public $URL = 'https://www.monexy.com/xml/server.php?req=';
-	public $ApiHash = '';
+	private $ApiName = 'testapirichweber';
+	private $ApiHash = '';
 	private $SecretKey = 'z80AhqYIuFP1';
 	
 	/*
-	 * 
+	 * request to server
 	 */
-	# request to server
-	function _request($xml) {
-		//echo '<br />_request<br />';
-		//echo 'FLAG_1<br />';
+	public function _request($xml)
+	{
 		$ch = curl_init();
-		//echo 'FLAG_2<br />';
 		curl_setopt($ch, CURLOPT_URL, $xml);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		//curl_setopt($ch, CURLOPT_POST, 1);
-		//curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-		//curl_setopt($ch, CURLOPT_INTERFACE, "87.118.97.138");
 	
 		$result = curl_exec($ch);
 		if(curl_errno($ch) != 0) {
@@ -35,40 +28,19 @@ class Monexy {
 			$result .= "<error>".curl_error($ch)."</error>\n";
 		};
 		curl_close($ch);
-		
-		//echo '<br />_request2222<br />';
-		//$result = urldecode($result);
+
 		$result = simplexml_load_string(urldecode($result));
-		echo '<pre>';
-		print_r($result);
-		echo '</pre>';
-		//$result = urldecode($result);
-		//echo $response;
-		//$response = simplexml_load_string($result);
-		//echo '<pre>';
-		//print_r($response);
-		//echo '</pre>';
-		//echo '<br />_request3333<br />';
-		
 		
 		return $result;
 	}
 	
-	/*
-	 * 
-	 */
-	# change string encoding
-	function _change_encoding($text, $encoding, $entities = false) {
-		$text = $entities ? htmlspecialchars($text, ENT_QUOTES) : $text;
-		return mb_convert_encoding($text, $encoding, $this->encoding);
-	}
+
 	
 	/*
 	 * 
 	 */
 	public  function operation($data)
 	{
-		//
 		$result = "";
 		
 		foreach($data as $k => $v) {
@@ -96,7 +68,217 @@ class Monexy {
 		$result = $this->URL . $result;
 		
 		return $result;
-	} 
+	}
+	
+	
+	
+	/*
+	 * Запрос перевода с кошелька пользователя 
+	 * на корпоративный кошелек
+	 * payment-req
+	 * 
+	 */
+	public function paymentReq()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос подтверждения перевода SMS кодом
+	 * payment-conf
+	 * 
+	 */
+	public function paymentConf()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос перевода (проверка возможности перевода) с
+	 * корпоративного кошелька на кошелек пользователя
+	 * transfer-api
+	 * 
+	 */
+	public function transferApi()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос статуса перевода по OrderID
+	 * status-api
+	 * 
+	 */
+	public function statusApi()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос на авторизацию
+	 * auth
+	 * 
+	 */
+	public function auth()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос аутентификации
+	 * login
+	 * 
+	 */
+	public function login()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос получения баланса по пользовательской сессии
+	 * Примечание в зависимости от потребностей применяется запрос 
+	 * с использованием параметра {ApiSess|ApiBCode}
+	 * balans
+	 * 
+	 */
+	public function balans()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос получения баланса по BCode
+	 * Запрос получения баланса всех кошельков MoneXy 
+	 * без использования SMS
+	 * balans-bcode
+	 * 
+	 */
+	public function balansBcode()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос перевода с кошелька на кошелек
+	 * payment-req
+	 * 
+	 */
+	public function paymentReq()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос истории операций
+	 * history
+	 */
+	public function history()
+	{
+		//
+	}
+	
+	/*
+	 * Генерация ваучера MoneXy
+	 * vaucher-api
+	 */
+	public function vaucherApi()
+	{
+		//
+	}
+	
+	/*
+	 * Перевод с Ваучера MoneXy на кошелек пользователя
+	 * transfer
+	 */
+	public function transfer()
+	{
+		//
+	}
+	
+	/*
+	 * Перевод с Ваучера MoneXy на корпоративный кошелек
+	 * transfer corp
+	 */
+	public function transferCorp()
+	{
+		//
+	}
+	
+	/*
+	 * Проверка баланса ваучера MoneXy
+	 * balans-card
+	 */
+	public function balansCard()
+	{
+		//
+	}
+	
+	/*
+	 * Баланс по корпоративному кошельку, который привязан к API
+	 * Торговец
+	 * balans-card-api-payee
+	 */
+	public function balansCardApiPayee()
+	{
+		//
+	}
+	
+	/*
+	 * Баланс по корпоративному кошельку, который привязан к API
+	 * Распространитель
+	 * balans-card-api
+	 */
+	public function balansCardApi()
+	{
+		//
+	}
+	
+	/*
+	 * Проверка статуса платежа (создания ваучера) по уникальному OrderID
+	 * status-api
+	 */
+	public function statusApi()
+	{
+		//
+	}
+	
+	/*
+	 * Запрос отмены операции
+	 * transfer-api-return
+	 */
+	public function transferApiReturn()
+	{
+		//
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
@@ -104,34 +286,16 @@ class Monexy {
 	 */
 	public function MkTime()
 	{
-		$MkTime = $this->getmicrotimeRW();
-		/*
-		 * Простой вариант
-		 * $MkTime = microtime(true);
-		 */
+		$MkTime = $this->getMicroTime();
 		$this->ApiHash = sha1($this->ApiName . ':' 
 				. $this->SecretKey . ':' 
-				. $MkTime);
-		
+				. $MkTime);		
 		return $MkTime;
 	}
 	
-	/*
-	 * Простая функция для реализации поведения из PHP 5
-	 */
-	public function getmicrotime()
-	{
-	    list($usec, $sec) = explode(" ", microtime());
-	    return ((float)$usec + (float)$sec);
-	    /*
-	     * Простой вариант 
-	     * $MkTime = microtime(true);
-	     */
-	}
-	
 	
 	/*
-	 * Метод с функцией микровремени с WMXI
+	 * Метод с функцией микровремени
 	 */
 	public function getMicroTime()
 	{
