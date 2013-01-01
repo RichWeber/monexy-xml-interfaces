@@ -16,9 +16,7 @@ class Monexy {
 	 */
 	public function MkTime()
 	{
-		$MkTime = $this->getmicrotime;
-		//$MkTime = microtime(true);
-		echo  $MkTime;
+		$MkTime = $this->getmicrotime();
 		$this->ApiHash = sha1($this->ApiName . ':' 
 				. $this->SecretKey . ':' 
 				. $MkTime);
