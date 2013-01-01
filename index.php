@@ -10,7 +10,7 @@ $api = new Monexy();
 echo 'Testing MoneXy API (' . $api->ApiName . ')';
 echo '<br />=============================<br /><br />';
 
-
+echo $api->MkTime();
 echo '<br />=============================<br /><br />';
 
 echo $api->URL;
