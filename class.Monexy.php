@@ -36,8 +36,17 @@ class Monexy {
 		curl_close($ch);
 		
 		echo '<br />_request2222<br />';
+		$response = simplexml_load_string($result);
+		echo '<pre>';
+		print_r($response);
+		echo '</pre>';
+		$result = urldecode($result);
 		echo $result;
-		echo '<br />_request3333<br />';
+		$response = simplexml_load_string($result);
+		echo '<pre>';
+		print_r($response);
+		echo '</pre>';
+		//echo '<br />_request3333<br />';
 		return $result;
 	}
 	
@@ -78,6 +87,8 @@ class Monexy {
 			</Auth>'
 			. $this->operation($data) .
 		'</monexyApi>';
+		
+		$result = urlencode($result);
 		
 		return $result;
 	} 
