@@ -26,9 +26,12 @@ echo '<br />=============================<br /><br />';
 $typeAPI = 'balans-card-api-payee';
 $date = '';
 echo '<pre><br /><br />';
-print_r($api->xml($typeAPI, $date));
+print_r($api->_xml($typeAPI, $date));
 echo '</pre>';
 echo '<br />=============================<br /><br />';
+
+$xml = $api->_xml($typeAPI, $date);
+$XML = $api->_request($xml);
 
 
 echo '<br />=============================<br /><br />';

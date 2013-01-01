@@ -6,8 +6,9 @@
 
 class Monexy {
 	
+	var $encoding = "UTF-8";
 	public $ApiName = 'testapirichweber';
-	public $URL = 'https://www.monexy.com/xml/server.php?req=';
+	public $URL = 'https://www.monexy.com/xml/server.php';
 	public $ApiHash = '';
 	private $SecretKey = 'z80AhqYIuFP1';
 	
@@ -15,8 +16,9 @@ class Monexy {
 	 * 
 	 */
 	# request to server
-	function _request($url, $xml) {
-		$ch = curl_init($url);
+	function _request($xml) {
+		echo '<br />_request<br />';
+		$ch = curl_init($this->URL);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -30,9 +32,20 @@ class Monexy {
 			$result .= "<error>".curl_error($ch)."</error>\n";
 		};
 		curl_close($ch);
-	
+		
+		echo $result;
 		return $result;
 	}
+	
+	/*
+	 * 
+	 */
+	# change string encoding
+	function _change_encoding($text, $encoding, $entities = false) {
+		$text = $entities ? htmlspecialchars($text, ENT_QUOTES) : $text;
+		return mb_convert_encoding($text, $encoding, $this->encoding);
+	}
+	
 	/*
 	 * 
 	 */
@@ -52,9 +65,9 @@ class Monexy {
 	/*
 	 * 
 	 */
-	public function xml($typeAPI, $date)
+	public function _xml($typeAPI, $date)
 	{
-		$xml = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
+		$result = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
 			<Auth>
 				<ApiName>' . $this->ApiName . '</ApiName>
 				<ApiHash>' . $this->ApiHash . '</ApiHash>
@@ -62,7 +75,7 @@ class Monexy {
 			. $this->operation($data) .
 		'</monexyApi>';
 		
-		return $xml;
+		return $result;
 	} 
 	
 	
@@ -71,7 +84,7 @@ class Monexy {
 	 */
 	public function MkTime()
 	{
-		$MkTime = $this->getmicrotime();
+		$MkTime = $this->getmicrotimeRW();
 		/*
 		 * Простой вариант
 		 * $MkTime = microtime(true);
