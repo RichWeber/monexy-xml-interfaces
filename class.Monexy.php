@@ -6,8 +6,8 @@
 
 class Monexy {
 	
-	public $ApiName = '';
+	public $ApiName = 'testapirichweber';
 	public $URL = 'https://www.monexy.com/xml/server.php?req=';
-	private $SecretKey = '';
+	private $SecretKey = 'z80AhqYIuFP1';
 	
 }
