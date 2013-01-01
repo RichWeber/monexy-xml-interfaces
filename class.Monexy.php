@@ -23,7 +23,7 @@ class Monexy {
 		//echo 'FLAG_2<br />';
 		curl_setopt($ch, CURLOPT_URL, $xml);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
-		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		//curl_setopt($ch, CURLOPT_POST, 1);
 		//curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		//curl_setopt($ch, CURLOPT_INTERFACE, "87.118.97.138");
@@ -36,18 +36,19 @@ class Monexy {
 		};
 		curl_close($ch);
 		
-		echo '<br />_request2222<br />';
-		$response = simplexml_load_string($result);
+		//echo '<br />_request2222<br />';
+		//$result = urldecode($result);
+		$result = simplexml_load_string(urldecode($result));
 		echo '<pre>';
-		print_r($response);
+		print_r($result);
 		echo '</pre>';
-		$result = urldecode($result);
-		echo $result;
-		$response = simplexml_load_string($result);
-		echo '<pre>';
-		print_r($response);
-		echo '</pre>';
-		echo '<br />_request3333<br />';
+		//$result = urldecode($result);
+		//echo $response;
+		//$response = simplexml_load_string($result);
+		//echo '<pre>';
+		//print_r($response);
+		//echo '</pre>';
+		//echo '<br />_request3333<br />';
 		
 		
 		return $result;
@@ -128,10 +129,11 @@ class Monexy {
 	     */
 	}
 	
+	
 	/*
 	 * Метод с функцией микровремени с WMXI
 	 */
-	public function getmicrotimeRW()
+	public function getMicroTime()
 	{
 		list($usec, $sec) = explode(" ", substr(microtime(), 2));
 		return substr($sec.$usec, 0, 15);
