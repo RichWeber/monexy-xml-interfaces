@@ -1,12 +1,20 @@
 <?php
-
+/*
+ * Подключаем класс
+ */
 require_once 'class.Monexy.php';
 $api = new Monexy();
+/*
+ * Заголовки
+ */
+echo 'Testing MoneXy API (' . $api->ApiName . ')';
+echo '<br />=============================<br /><br />';
 
-echo 'Testing MoneXy API !!!';
-echo '<br /><br />=============================<br /><br />';
+
+echo '<br />=============================<br /><br />';
 
 echo $api->URL;
-echo '<br /><br />=============================<br /><br />';
+echo '<br />=============================<br /><br />';
+
 
 ?>
