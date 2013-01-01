@@ -8,7 +8,7 @@ class Monexy {
 	
 	var $encoding = "UTF-8";
 	public $ApiName = 'testapirichweber';
-	public $URL = 'https://www.monexy.com/xml/server.php';
+	public $URL = 'https://www.monexy.com/xml/server.php?req=';
 	public $ApiHash = '';
 	private $SecretKey = 'z80AhqYIuFP1';
 	
@@ -17,14 +17,15 @@ class Monexy {
 	 */
 	# request to server
 	function _request($xml) {
-		echo '<br />_request<br />';
-		echo 'FLAG_1<br />';
-		$ch = curl_init($this->URL);
-		echo 'FLAG_2<br />';
+		//echo '<br />_request<br />';
+		//echo 'FLAG_1<br />';
+		$ch = curl_init();
+		//echo 'FLAG_2<br />';
+		curl_setopt($ch, CURLOPT_URL, $xml);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		//curl_setopt($ch, CURLOPT_POST, 1);
+		//curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
 		//curl_setopt($ch, CURLOPT_INTERFACE, "87.118.97.138");
 	
 		$result = curl_exec($ch);
@@ -46,7 +47,9 @@ class Monexy {
 		echo '<pre>';
 		print_r($response);
 		echo '</pre>';
-		//echo '<br />_request3333<br />';
+		echo '<br />_request3333<br />';
+		
+		
 		return $result;
 	}
 	
@@ -89,6 +92,7 @@ class Monexy {
 		'</monexyApi>';
 		
 		$result = urlencode($result);
+		$result = $this->URL . $result;
 		
 		return $result;
 	} 
