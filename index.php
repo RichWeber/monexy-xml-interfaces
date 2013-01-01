@@ -7,13 +7,17 @@ $api = new Monexy();
 /*
  * Заголовки
  */
-echo 'Testing MoneXy API (' . $api->ApiName . ')';
-echo '<br />=============================<br /><br />';
+echo '<br />===================================<br />';
+echo '=== Testing MoneXy API (' . $api->ApiName . ') ===';
+echo '<br />===================================<br /><br />';
 
 echo $api->MkTime();
 echo '<br />=============================<br /><br />';
-$MkTime = microtime(true);
-echo  $MkTime;
+
+echo $api->getmicrotimeRW();
+echo '<br />=============================<br /><br />';
+
+echo  $api->ApiHash;
 echo '<br />=============================<br /><br />';
 
 echo $api->URL;

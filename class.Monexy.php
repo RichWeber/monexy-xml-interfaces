@@ -41,4 +41,13 @@ class Monexy {
 	     */
 	}
 	
+	/*
+	 * Метод с функцией микровремени с WMXI
+	 */
+	public function getmicrotimeRW()
+	{
+		list($usec, $sec) = explode(" ", substr(microtime(), 2));
+		return substr($sec.$usec, 0, 15);
+	}
+	
 }
