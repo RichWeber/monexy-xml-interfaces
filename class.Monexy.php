@@ -18,7 +18,9 @@ class Monexy {
 	# request to server
 	function _request($xml) {
 		echo '<br />_request<br />';
+		echo 'FLAG_1<br />';
 		$ch = curl_init($this->URL);
+		echo 'FLAG_2<br />';
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_POST, 1);
@@ -33,7 +35,9 @@ class Monexy {
 		};
 		curl_close($ch);
 		
+		echo '<br />_request2222<br />';
 		echo $result;
+		echo '<br />_request3333<br />';
 		return $result;
 	}
 	
