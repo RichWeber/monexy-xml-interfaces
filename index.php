@@ -14,6 +14,7 @@ echo $api->MkTime();
 echo '<br />=============================<br /><br />';
 $MkTime = microtime(true);
 echo  $MkTime;
+echo '<br />=============================<br /><br />';
 
 echo $api->URL;
 echo '<br />=============================<br /><br />';

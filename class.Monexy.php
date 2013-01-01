@@ -17,6 +17,10 @@ class Monexy {
 	public function MkTime()
 	{
 		$MkTime = $this->getmicrotime();
+		/*
+		 * Простой вариант
+		 * $MkTime = microtime(true);
+		 */
 		$this->ApiHash = sha1($this->ApiName . ':' 
 				. $this->SecretKey . ':' 
 				. $MkTime);
@@ -31,6 +35,10 @@ class Monexy {
 	{
 	    list($usec, $sec) = explode(" ", microtime());
 	    return ((float)$usec + (float)$sec);
+	    /*
+	     * Простой вариант 
+	     * $MkTime = microtime(true);
+	     */
 	}
 	
 }
