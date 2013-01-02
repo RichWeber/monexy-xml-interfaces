@@ -41,20 +41,23 @@ class Monexy {
 	 */
 	public  function operation($data)
 	{
+		/*
 		$result = "";
-		
-		foreach($data as $k => $v) {
-			$value = is_array($v) ? "\n".$this->operation($v) : $this->_change_encoding($v, "HTML-ENTITIES", true);
-			$result .= "<$k>$value</$k>\n";
+		if (is_array($data)) {
+			foreach($data as $k => $v) {
+				$value = is_array($v) ? "\n".$this->operation($v) : $v;
+				$result .= "<$k>$value</$k>\n";
+			}
 		}
 		
 		return $result;
+		*/
 	}
 	
 	/*
 	 * 
 	 */
-	public function _xml($typeAPI, $date)
+	public function _xml($typeAPI, $data)
 	{
 		$result = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
 			<Auth>
@@ -163,7 +166,7 @@ class Monexy {
 	 * payment-req
 	 * 
 	 */
-	public function paymentReq()
+	public function paymentReq2()
 	{
 		//
 	}
@@ -237,7 +240,7 @@ class Monexy {
 	 * Проверка статуса платежа (создания ваучера) по уникальному OrderID
 	 * status-api
 	 */
-	public function statusApi()
+	public function statusApi2()
 	{
 		//
 	}
