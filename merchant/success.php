@@ -1,4 +1,3 @@
-<?php require_once 'config.php';?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,8 +42,8 @@
           <a class="brand" href="#">Monexy Merchant</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="index.php">Home</a></li>
-              <li><a href="success.php">Success</a></li>
+              <li><a href="index.php">Home</a></li>
+              <li class="active"><a href="success.php">Success</a></li>
               <li><a href="fail.php">Fail</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -54,54 +53,22 @@
 
     <div class="container">
 
-      <h1>Форма запроса платежа</h1>
-      
+      <h1>Форма выполненного платежа</h1>
       <br />
-        <div class="alert alert-error">
-		  <strong>Внимание!</strong> Все параметры платежа прописаны в файле конфигурации (config.php)
+        <div class="alert alert-success">
+		  <strong>Внимание!</strong> В случае успешного выполнения платежа сообщаем клиенту детали сделки.
 		</div>
-
-      
-      <br />
-        <form class="form-horizontal" name="pay" method="POST" action="https://www.monexy.com/app/mobi.php">
-		<input type="hidden" name="MonexyMerchantID" value="<?php echo $MonexyMerchantID; ?>">
-		<input type="hidden" name="MonexyMerchantInfoShopName" value="<?php echo $MonexyMerchantInfoShopName; ?>">
-		
-		<div class="control-group">
-		<label class="control-label" for="inputEmail">Сумма платежа</label>
-		<div class="controls">
-		<input type="text" class="input-large" name="MonexyMerchantSum" readonly value="<?php echo $MonexyMerchantSum; ?>">
-		</div></div>
-		
-		<div class="control-group">
-		<label class="control-label" for="inputEmail">Идентификатор платежа</label>
-		<div class="controls">
-		<input type="text" class="input-large" name="MonexyMerchantOrderId" readonly value="<?php echo $MonexyMerchantOrderId; ?>">
-		</div></div>
-		<div class="control-group">
-		<label class="control-label" for="inputEmail">Описание платежа</label>
-		<div class="controls">
-		<input type="text" class="input-large" name="MonexyMerchantOrderDesc" readonly value="<?php echo $MonexyMerchantOrderDesc; ?>">
-		</div></div>
-		
-		<input type="hidden" name="MonexyMerchantHash" value="<?php echo $MonexyMerchantHash; ?>">
-		
-		<input type="hidden" name="MonexyMerchantResultUrl" value="<?php echo $MonexyMerchantResultUrl; ?>">
-		<input type="hidden" name="MonexyMerchantSuccessUrl" value="<?php echo $MonexyMerchantSuccessUrl; ?>">
-		<input type="hidden" name="MonexyMerchantFailUrl" value="<?php echo $MonexyMerchantFailUrl; ?>">
-		
-		<input type="hidden" name="MonexyMerchantFields" value="user_field_1 user_field_2 user_field_3">
-		<input type="hidden" name="user_field_1" value="user_field_1">
-		<input type="hidden" name="user_field_2" value="user_field_2">
-		<input type="hidden" name="user_field_3" value="user_field_3">
-		
-		<div class="control-group">
-		<div class="controls">
-		<input type="submit" class="btn" name="Submit" value="Оплатить">
-		</div></div>
-		</form>
-
-
+	  <br />
+        <div class="alert alert-info">
+		  <strong>Важно!</strong> Товар или услугу нужно отдавать в скрипте результата платежа (MonexyMerchantResultUrl).
+		</div>
+	  
+	  <br />
+	  <pre>
+	  <?php 
+	  print_r($_POST);
+	  ?>
+	  </pre>
     </div> <!-- /container -->
 
     <!-- Le javascript
