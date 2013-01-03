@@ -280,7 +280,17 @@ class Monexy {
 	
 	
 	
-	
+	/*
+	 * Проверка login на регулярном выражении
+	 * Checking login on a regular expression
+	 * @param $login
+	 * @return true/false
+	 */
+	public function checkRegularLogin($login) 
+	{
+		if (!preg_match("/^[0-9]{12,12}$/", $login)) return false;
+		else return true;
+	}	
 	
 	/*
 	 * Создаем MkTime и ApiHash
