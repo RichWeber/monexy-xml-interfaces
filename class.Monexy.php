@@ -289,21 +289,79 @@ class Monexy {
 	
 	/*
 	 * Запрос перевода с кошелька на кошелек
-	 * payment-req
-	 * 
+	 * @param $apiLogin
+	 * @param $apiSess
+	 * @param $orderId
+	 * @param $orderDesc
+	 * @param $payeeLogin
+	 * @param $payeeCurrency
+	 * @param $payerCurrency
+	 * @param $amount
+	 * @param $amountType
+	 * @param $status
+	 * @return
 	 */
-	public function paymentReq()
+	public function paymentReq($apiLogin, $apiSess, $orderId,
+							   $orderDesc, $payeeLogin, $payeeCurrency,
+							   $payerCurrency, $amount, $amountType,
+							   $status)
 	{
-		//
+		$queryType = 'payment-req';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => $apiSess,
+		);
+		$data["Payment"] = array(
+				"OrderId" => $orderId,
+				"OrderDesc" => $orderDesc,				
+				"PayeeLogin" => $payeeLogin,
+				"PayeeCurrency" => $payeeCurrency,
+				"PayerCurrency" => $payerCurrency,
+				"Amount" => $amount,
+				"AmountType" => $amountType,
+				"Status" => $status,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос истории операций
-	 * history
+	 * @param $apiLogin
+	 * @param $apiSess
+	 * @param $dateFrom
+	 * @param $dateTo
+	 * @param $page
+	 * @param $listing
+	 * @param $currency
+	 * @return
 	 */
-	public function history()
+	public function history($apiLogin, $apiSess, $dateFrom,
+							$dateTo, $page, $listing,
+							$currency)
 	{
-		//
+		$queryType = 'history';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => $apiSess,
+		);
+		$data["History"] = array(
+				"DateFrom" => $dateFrom,
+				"DateTo" => $dateTo,				
+				"Page" => $page,
+				"Listing" => $listing,
+				"Currency" => $currency,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		
+		return $xml;
 	}
 	
 	/*
@@ -327,6 +385,11 @@ class Monexy {
 				"VaucherType" => $vaucherType,
 				"Status" => $status,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
@@ -362,6 +425,11 @@ class Monexy {
 				"PayerPass" => $payerPass,
 				"Status" => $status,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
