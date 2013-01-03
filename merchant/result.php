@@ -16,7 +16,7 @@ $MerchantSecretKey = 'Kqc7nQYJcvjz';
 /*
  * По идентификатору платежа S_POST['MonexyMerchantOrderId']
  * получаем все детали платежа для прохождения
- * всех проверок
+ * всех проверок (к примеру с БД)
  */
 $MonexyMerchantSum = '0.01';
 $MonexyMerchantOrderId = 'm004';
