@@ -38,14 +38,11 @@ class Monexy {
 		return $result;
 	}
 	
-
-	
 	/*
 	 * 
 	 */
 	public  function tagOperation($data)
-	{
-		
+	{		
 		$result = "";
 		if (is_array($data)) {
 			foreach($data as $k => $v) {
@@ -54,8 +51,7 @@ class Monexy {
 			}
 		}
 		
-		return $result;
-		
+		return $result;		
 	}
 	
 	/*
@@ -94,7 +90,7 @@ class Monexy {
 	 * @param $status
 	 * @return
 	 */
-	public function paymentReq($apiLogin, $apiSess, $orderId,
+	public function paymentReqCorp($apiLogin, $apiSess, $orderId,
 							   $orderDesc, $payeeCard, $payeeCurrency,
 							   $payerCurrency, $amount, $amountType,
 							   $status)
@@ -124,12 +120,30 @@ class Monexy {
 	
 	/*
 	 * Запрос подтверждения перевода SMS кодом
-	 * payment-conf
-	 * 
+	 * @param $apiLogin
+	 * @param $apiSess
+	 * @param $paymentId
+	 * @param $paymentSms
+	 * @return
 	 */
-	public function paymentConf()
+	public function paymentConf($apiLogin, $apiSess,
+								$paymentId, $paymentSms)
 	{
-		//
+		$queryType = 'payment-conf';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => $apiSess,
+		);
+		$data["Payment"] = array(
+				"PaymentId" => $paymentId,
+				"PaymentSms" => $paymentSms,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		
+		return $xml;
 	}
 	
 	/*
@@ -149,8 +163,7 @@ class Monexy {
 								$amount, $amountType, $payeeCurrency, 
 								$verifyOId, $status)
 	{
-		$queryType = 'transfer-api';
-		
+		$queryType = 'transfer-api';		
 		
 		$data["Transfer"] = array(
 				"OrderId" => $orderId,
@@ -181,50 +194,97 @@ class Monexy {
 		$data["Status"] = array(
 				"OrderId" => $orderId,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос на авторизацию
-	 * auth
-	 * 
+	 * @param $apiLogin
+	 * @return
 	 */
-	public function auth()
+	public function auth($apiLogin)
 	{
-		//
+		$queryType = 'auth';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => '',
+		);
+		
+		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос аутентификации
-	 * login
-	 * 
+	 * @param $apiLogin
+	 * @param $smsCode
+	 * @return
 	 */
-	public function login()
+	public function login($apiLogin, $smsCode)
 	{
-		//
+		$queryType = 'login';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+		);
+		$data["Login"] = array(
+				"SmsCode" => $smsCode,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос получения баланса по пользовательской сессии
 	 * Примечание в зависимости от потребностей применяется запрос 
 	 * с использованием параметра {ApiSess|ApiBCode}
-	 * balans
-	 * 
+	 * @param $apiLogin
+	 * @param $apiSess
+	 * @return
 	 */
-	public function balans()
+	public function balans($apiLogin, $apiSess)
 	{
-		//
+		$queryType = 'balans';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => $apiSess,
+		);
+		
+		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос получения баланса по BCode
 	 * Запрос получения баланса всех кошельков MoneXy 
 	 * без использования SMS
-	 * balans-bcode
-	 * 
+	 * @param $apiLogin
+	 * @param $apiBCode
+	 * @return
 	 */
-	public function balansBcode()
+	public function balansBcode($apiLogin, $apiBCode)
 	{
-		//
+		$queryType = 'balans-bcode';
+		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiBCode" => $apiBCode,
+		);
+		
+		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		
+		return $xml;
 	}
 	
 	/*
@@ -232,7 +292,7 @@ class Monexy {
 	 * payment-req
 	 * 
 	 */
-	public function paymentReq2()
+	public function paymentReq()
 	{
 		//
 	}

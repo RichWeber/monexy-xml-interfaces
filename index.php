@@ -34,7 +34,7 @@ $xml = $api->transferApi($orderId, $orderDesc, $payeePhone,
 echo $xml;
 */
 
-
+/*
 echo 'Запрос перевода с кошелька пользователя <br />';
 echo 'на корпоративный кошелек <br />';
 echo '<strong>payment-req</strong>';
@@ -51,9 +51,82 @@ $amount = 0.01;
 $amountType = 1;
 $status = 0;
 
-$xml = $api->paymentReq($apiLogin, $apiSess, $orderId,
+$xml = $api->paymentReqCorp($apiLogin, $apiSess, $orderId,
 		$orderDesc, $payeeCard, $payeeCurrency,
 		$payerCurrency, $amount, $amountType, $status);
 echo $xml;
+*/
+
+/*
+echo 'Запрос подтверждения перевода SMS кодом <br />';
+echo '<strong>payment-conf</strong>';
+echo '<br />=============================<br /><br />';
+
+$apiLogin = '380986470007';
+$apiSess = 'session';
+$paymentId = 3;
+$paymentSms = '1234';
+
+$xml = $api->paymentConf($apiLogin, $apiSess, $paymentId, $paymentSms);
+echo $xml;
+*/
+
+/*
+echo 'Запрос статуса перевода по OrderID <br />';
+echo '<strong>status-api</strong>';
+echo '<br />=============================<br /><br />';
+
+$orderId = 4;
+
+$xml = $api->statusApi($orderId);
+echo $xml;
+*/
+
+/*
+echo 'Запрос на авторизацию <br />';
+echo '<strong>auth</strong>';
+echo '<br />=============================<br /><br />';
+
+$apiLogin = '380986470007';
+
+$xml = $api->auth($apiLogin);
+echo $xml;
+*/
+
+/*
+echo 'Запрос аутентификации <br />';
+echo '<strong>login</strong>';
+echo '<br />=============================<br /><br />';
+
+$apiLogin = '380986470007';
+$smsCode = 3254;
+
+$xml = $api->login($apiLogin, $smsCode);
+echo $xml;
+*/
+
+/*
+echo 'Запрос получения баланса по пользовательской сессии <br />';
+echo '<strong>balans</strong>';
+echo '<br />=============================<br /><br />';
+
+$apiLogin = '380986470007';
+$apiSess = 'session';
+
+$xml = $api->balans($apiLogin, $apiSess);
+echo $xml;
+*/
+
+
+echo 'Запрос получения баланса по BCode <br />';
+echo '<strong>balans-bcode</strong>';
+echo '<br />=============================<br /><br />';
+
+$apiLogin = '380986470007';
+$apiBCode = '123456789';
+
+$xml = $api->balansBcode($apiLogin, $apiBCode);
+echo $xml;
+
 
 ?>
