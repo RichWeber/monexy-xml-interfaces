@@ -77,30 +77,49 @@ class Monexy {
 		
 		return $body;
 	}
-	
-	/*
-	 * 
-	 */
-	/*public function defaultAuth()
-	{
-		$data["Auth"] = array(
-				"ApiName" => $this->ApiName,
-				"ApiHash" => $this->ApiHash,
-		);
-		
-		return $data;
-	}*/
+
 	
 	/*
 	 * Запрос перевода с кошелька пользователя 
 	 * на корпоративный кошелек
-	 * payment-req
-	 * 
+	 * @param $apiLogin
+	 * @param $apiSess
+	 * @param $orderId
+	 * @param $orderDesc
+	 * @param $payeeCard
+	 * @param $payeeCurrency
+	 * @param $payerCurrency
+	 * @param $amount
+	 * @param $amountType
+	 * @param $status
+	 * @return
 	 */
-	public function paymentReq()
+	public function paymentReq($apiLogin, $apiSess, $orderId,
+							   $orderDesc, $payeeCard, $payeeCurrency,
+							   $payerCurrency, $amount, $amountType,
+							   $status)
 	{
 		$queryType = 'payment-req';
 		
+		$addAuth = array(
+				"ApiLogin" => $apiLogin,
+				"ApiSess" => $apiSess,
+		);
+		$data["Payment"] = array(
+				"OrderId" => $orderId,
+				"OrderDesc" => $orderDesc,
+				"PayeeCard" => $payeeCard,
+				"PayeeCurrency" => $payeeCurrency,
+				"PayerCurrency" => $payerCurrency,
+				"Amount" => $amount,
+				"AmountType" => $amountType,
+				"Status" => $status,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		
+		return $xml;
 	}
 	
 	/*
