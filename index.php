@@ -13,42 +13,24 @@ echo '<br />======================<br />';
 echo '=== Testing MoneXy API  ===';
 echo '<br />======================<br /><br />';
 
-//echo $api->MkTime();
-//echo '<br />=============================<br /><br />';
-
-//echo $api->getmicrotimeRW();
-//echo '<br />=============================<br /><br />';
-
-//echo  $api->ApiHash;
-//echo '<br />=============================<br /><br />';
-
-//echo $api->URL;
-//echo '<br />=============================<br /><br />';
-
-$typeAPI = 'balans-card-api-payee';
-$data = '';
-//echo '<pre><br /><br />';
-//print_r($api->_xml($typeAPI, $date));
-//echo '</pre>';
-//echo '<br />=============================<br /><br />';
-
-$xml = $api->_xml($typeAPI);
-$XML = $api->_request($xml);
-
-echo '<pre>';
-print_r($XML);
-echo '</pre>';
 
 
-/*echo '<br />=============================<br /><br />';
-echo 'RESULT:';
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-echo '<br />=============================<br /><br />';*/
+echo 'Запрос перевода (проверка возможности перевода) с <br />';
+echo 'корпоративного кошелька на кошелек пользователя <br />';
+echo '<strong>transfer-api</strong>';
+echo '<br />=============================<br /><br />';
 
-/*
- * 
- */
+$orderId = 1;
+$orderDesc = 'test';
+$payeePhone = '380986470007';
+$amount = 0.01;
+$amountType = 1;
+$payeeCurrency ='UAH';
+$verifyOId = 1;
+$status = 0;
+
+$xml = $api->transferApi($orderId, $orderDesc, $payeePhone, 
+		$amount, $amountType, $payeeCurrency, $verifyOId, $status);
+echo $xml;
 
 ?>

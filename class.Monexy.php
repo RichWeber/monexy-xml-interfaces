@@ -16,6 +16,10 @@ class Monexy {
 	 */
 	public function _request($xml)
 	{
+		// Приостанавливаем выполнения запроса
+		// для тестирования построения XML-пакета
+		die();
+		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $xml);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -39,39 +43,53 @@ class Monexy {
 	/*
 	 * 
 	 */
-	public  function operation($data)
+	public  function tagOperation($data)
 	{
-		/*
+		
 		$result = "";
 		if (is_array($data)) {
 			foreach($data as $k => $v) {
-				$value = is_array($v) ? "\n".$this->operation($v) : $v;
+				$value = is_array($v) ? "\n".$this->tagOperation($v) : $v;
 				$result .= "<$k>$value</$k>\n";
 			}
 		}
 		
 		return $result;
-		*/
+		
 	}
 	
 	/*
 	 * 
 	 */
-	public function _xml($typeAPI)
+	public function xmlBody($queryType, $addAuth=false, $xml)
 	{
-		$result = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
-			<Auth>
-				<ApiName>' . $this->ApiName . '</ApiName>
-				<ApiHash>' . $this->ApiHash . '</ApiHash>
-			</Auth></monexyApi>';
+		$body = '<monexyApi type="' . $queryType . '" mtime="' .$this->MkTime() . '">';
+		$body = $body . '<Auth>';
+		$body = $body . '<ApiName>' . $this->ApiName . '</ApiName>';
+		$body = $body . '<ApiHash>' . $this->ApiHash . '</ApiHash>';
+		if ($addAuth) $body = $body . $this->tagOperation($addAuth);
+		$body = $body . '</Auth>';
+		$body = $body . $xml;
+		$body = $body . '</monexyApi>';
 		
-		$result = urlencode($result);
-		$result = $this->URL . $result;
+		//$body = urlencode($body);
+		$body = $this->URL . $body;
 		
-		return $result;
+		return $body;
 	}
 	
-	
+	/*
+	 * 
+	 */
+	/*public function defaultAuth()
+	{
+		$data["Auth"] = array(
+				"ApiName" => $this->ApiName,
+				"ApiHash" => $this->ApiHash,
+		);
+		
+		return $data;
+	}*/
 	
 	/*
 	 * Запрос перевода с кошелька пользователя 
@@ -81,7 +99,8 @@ class Monexy {
 	 */
 	public function paymentReq()
 	{
-		//
+		$queryType = 'payment-req';
+		
 	}
 	
 	/*
@@ -97,22 +116,52 @@ class Monexy {
 	/*
 	 * Запрос перевода (проверка возможности перевода) с
 	 * корпоративного кошелька на кошелек пользователя
-	 * transfer-api
-	 * 
+	 * @param $orderId
+	 * @param $orderDesc 	
+	 * @param $payeePhone
+	 * @param $amount
+	 * @param $amountType
+	 * @param $payeeCurrency
+	 * @param $verifyOId
+	 * @param $status
+	 * @return
 	 */
-	public function transferApi()
+	public function transferApi($orderId, $orderDesc, $payeePhone,
+								$amount, $amountType, $payeeCurrency, 
+								$verifyOId, $status)
 	{
-		//
+		$queryType = 'transfer-api';
+		
+		
+		$data["Transfer"] = array(
+				"OrderId" => $orderId,
+				"OrderDesc" => $orderDesc,
+				"PayeePhone" => $payeePhone,
+				"Amount" => $amount,
+				"AmountType" => $amountType,
+				"PayeeCurrency" => $payeeCurrency,
+				"VerifyOId" => $verifyOId,
+				"Status" => $status,
+		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
 	 * Запрос статуса перевода по OrderID
-	 * status-api
-	 * 
+	 * @param $orderId
+	 * @return
 	 */
-	public function statusApi()
+	public function statusApi($orderId)
 	{
-		//
+		$queryType = 'status-api';
+		
+		$data["Status"] = array(
+				"OrderId" => $orderId,
+		);
 	}
 	
 	/*
@@ -180,38 +229,108 @@ class Monexy {
 	
 	/*
 	 * Генерация ваучера MoneXy
-	 * vaucher-api
+	 * @param $desc
+	 * @param $orderId
+	 * @param $amount
+	 * @param $vaucherType
+	 * @param $status
+	 * @return
 	 */
-	public function vaucherApi()
+	public function vaucherApi($desc, $orderId, $amount, 
+							   $vaucherType, $status)
 	{
-		//
+		$queryType = 'vaucher-api';
+		
+		$data["Transfer"] = array(
+				"Desc" => $desc,
+				"OrderId" => $orderId,
+				"Amount" => $amount,
+				"VaucherType" => $vaucherType,
+				"Status" => $status,
+		);
 	}
 	
 	/*
 	 * Перевод с Ваучера MoneXy на кошелек пользователя
-	 * transfer
+	 * @param $orderId
+	 * @param $payeeCurrency
+	 * @param $payerCurrency
+	 * @param $payeePhone
+	 * @param $amount
+	 * @param $amountType
+	 * @param $orderDesc
+	 * @param $payerCard
+	 * @param $payerPass
+	 * @param $status
+	 * @return
 	 */
-	public function transfer()
+	public function transfer($orderId, $payeeCurrency, $payerCurrency,
+							 $payeePhone, $amount, $amountType,
+							 $orderDesc, $payerCard, $payerPass,
+							 $status)
 	{
-		//
+		$queryType = 'transfer';
+		
+		$data["Transfer"] = array(
+				"OrderId" => $orderId,
+				"PayeeCurrency" => $payeeCurrency,
+				"PayerCurrency" => $payerCurrency,
+				"PayeePhone" => $payeePhone,
+				"Amount" => $amount,
+				"AmountType" => $amountType,
+				"OrderDesc" => $orderDesc,
+				"PayerCard" => $payerCard,
+				"PayerPass" => $payerPass,
+				"Status" => $status,
+		);
 	}
 	
 	/*
 	 * Перевод с Ваучера MoneXy на корпоративный кошелек
-	 * transfer corp
+	 * @param $orderId
+	 * @param $orderDesc
+	 * @param $payeeCard
+	 * @param $payerCard
+	 * @param $payerPass
+	 * @param $amount
+	 * @param $amountType
+	 * @param $payeeCurrency
+	 * @param $status
+	 * @return
 	 */
-	public function transferCorp()
+	public function transferCorp($orderId, $orderDesc, $payeeCard,
+								 $payerCard, $payerPass, $amount,
+								 $amountType, $payeeCurrency,$status)
 	{
-		//
+		$queryType = 'transfer';
+		
+		$data["Transfer"] = array(
+				"OrderId" => $orderId,
+				"OrderDesc" => $orderDesc,
+				"PayeeCard" => $payeeCard,
+				"PayerCard" => $payerCard,
+				"PayerPass" => $payerPass,
+				"Amount" => $amount,
+				"AmountType" => $amountType,
+				"PayeeCurrency" => $payeeCurrency,
+				"Status" => $status,
+		);
 	}
 	
 	/*
 	 * Проверка баланса ваучера MoneXy
-	 * balans-card
+	 * @param $cardNumber
+	 * @param $cardPass
+	 * @return
 	 */
-	public function balansCard()
+	public function balansCard($cardNumber, $cardPass)
 	{
-		//
+		$queryType = 'balans-card';
+		
+		$data["Balans"] = array(
+				"CardNumber" => $cardNumber,
+				"CardPass" => $cardPass,
+		);
 	}
 	
 	/*
@@ -245,11 +364,23 @@ class Monexy {
 	
 	/*
 	 * Запрос отмены операции
-	 * transfer-api-return
+	 * @param $transId
+	 * @param $addDesc
+	 * @param $maxTime
+	 * @param $status
+	 * @return
 	 */
-	public function transferApiReturn()
+	public function transferApiReturn($transId, $addDesc,
+									  $maxTime, $status)
 	{
-		//
+		$queryType = 'transfer-api-return';
+		
+		$data["Transfer"] = array(
+				"TransId" => $transId,
+				"AddDesc" => $addDesc,
+				"MaxTime" => $maxTime,
+				"Status" => $status,
+		);
 	}
 
 	
@@ -307,6 +438,7 @@ class Monexy {
 	
 	/*
 	 * Метод с функцией микровремени
+	 * Method with the function of micro-time
 	 */
 	public function getMicroTime()
 	{
