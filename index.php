@@ -32,8 +32,12 @@ $data = '';
 //echo '</pre>';
 //echo '<br />=============================<br /><br />';
 
-$xml = $api->_xml($typeAPI, $data);
+$xml = $api->_xml($typeAPI);
 $XML = $api->_request($xml);
+
+echo '<pre>';
+print_r($XML);
+echo '</pre>';
 
 
 /*echo '<br />=============================<br /><br />';
@@ -42,4 +46,9 @@ echo '<pre>';
 print_r($_POST);
 echo '</pre>';
 echo '<br />=============================<br /><br />';*/
+
+/*
+ * 
+ */
+
 ?>

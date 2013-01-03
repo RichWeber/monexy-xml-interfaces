@@ -57,15 +57,13 @@ class Monexy {
 	/*
 	 * 
 	 */
-	public function _xml($typeAPI, $data)
+	public function _xml($typeAPI)
 	{
 		$result = '<monexyApi type="' .$typeAPI . '" mtime="' .$this->MkTime() . '">
 			<Auth>
 				<ApiName>' . $this->ApiName . '</ApiName>
 				<ApiHash>' . $this->ApiHash . '</ApiHash>
-			</Auth>'
-			. $this->operation($data) .
-		'</monexyApi>';
+			</Auth></monexyApi>';
 		
 		$result = urlencode($result);
 		$result = $this->URL . $result;
