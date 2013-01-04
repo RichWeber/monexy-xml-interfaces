@@ -6,9 +6,6 @@
 require_once 'class.Monexy.php';
 $api = new Monexy();
 
-/*
- * Заголовки
- */
 echo '<br />======================<br />';
 echo '=== Testing MoneXy API  ===';
 echo '<br />======================<br /><br />';
@@ -189,7 +186,7 @@ print_r($xml);
 echo '</pre>';
 */
 
-
+/*
 echo 'Генерация ваучера MoneXy <br />';
 echo '<strong>vaucher-api</strong>';
 echo '<br />=============================<br /><br />';
@@ -204,7 +201,7 @@ $xml = $api->vaucherApi($desc, $orderId, $amount, $vaucherType, $status);
 echo '<pre>';
 print_r($xml);
 echo '</pre>';
-
+*/
 
 /*
 echo 'Перевод с Ваучера MoneXy на кошелек пользователя <br />';

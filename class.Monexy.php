@@ -7,19 +7,18 @@
 class Monexy {
 
 	public $URL = 'https://www.monexy.com/xml/server.php?req=';
-	private $ApiName = 'testapirichweber';
-	private $ApiHash = '';
+	private $ApiName = 'testapirichweber'; # до 32 символов
+	private $ApiHash = ''; # 40 символов
 	private $SecretKey = 'z80AhqYIuFP1';
 	
 	/*
-	 * request to server
+	 * Отправляем запрос и ответ
+	 * интерпретируем строку с XML в объект
+	 * @param $xml string
+	 * @return $result SimpleXMLElement
 	 */
 	public function request($xml)
 	{
-		// Приостанавливаем выполнения запроса
-		// для тестирования построения XML-пакета
-		// die();
-		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $xml);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -32,14 +31,18 @@ class Monexy {
 			$result .= "<error>".curl_error($ch)."</error>\n";
 		};
 		curl_close($ch);
-
+		
+		// Декодирование URL-кодированной строки
+		// и интерпретируем строку с XML в объект
 		$result = simplexml_load_string(urldecode($result));
 		
 		return $result;
 	}
 	
 	/*
-	 * 
+	 * Формируем внутреннюю структуру XML-запроса
+	 * @param $data array
+	 * @return $result string
 	 */
 	public  function tagOperation($data)
 	{		
@@ -55,7 +58,12 @@ class Monexy {
 	}
 	
 	/*
-	 * 
+	 * Формируем XML-документ запроса в формате 
+	 * https://www.monexy.com/xml/server.php?req=<request body>
+	 * @param $queryType string
+	 * @param $addAuth array / false
+	 * @param $xml string
+	 * @return $body string
 	 */
 	public function xmlBody($queryType, $addAuth=false, $xml)
 	{
@@ -68,6 +76,7 @@ class Monexy {
 		$body = $body . $xml;
 		$body = $body . '</monexyApi>';
 		
+		// Тело запроса в URL-закодированном виде.
 		$body = urlencode($body);
 		$body = $this->URL . $body;
 		
@@ -500,7 +509,7 @@ class Monexy {
 	/*
 	 * Баланс по корпоративному кошельку, который привязан к API
 	 * Торговец
-	 * balans-card-api-payee
+	 * @return SimpleXMLElement
 	 */
 	public function balansCardApiPayee()
 	{
@@ -514,7 +523,6 @@ class Monexy {
 	/*
 	 * Баланс по корпоративному кошельку, который привязан к API
 	 * Распространитель
-	 * balans-card-api
 	 * @return SimpleXMLElement
 	 */
 	public function balansCardApi()
@@ -552,48 +560,10 @@ class Monexy {
 		return $xml;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	 * Проверка login на регулярном выражении
-	 * Checking login on a regular expression
-	 * @param $login
-	 * @return true/false
-	 */
-	public function checkRegularLogin($login) 
-	{
-		if (!preg_match("/^[0-9]{12,12}$/", $login)) return false;
-		else return true;
-	}	
-	
 	/*
 	 * Создаем MkTime и ApiHash
+	 * @return ApiHash
+	 * @return micro-time
 	 */
 	public function MkTime()
 	{
@@ -607,7 +577,7 @@ class Monexy {
 	
 	/*
 	 * Метод с функцией микровремени
-	 * Method with the function of micro-time
+	 * @return micro-time
 	 */
 	public function getMicroTime()
 	{
