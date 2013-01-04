@@ -18,7 +18,7 @@ class Monexy {
 	{
 		// Приостанавливаем выполнения запроса
 		// для тестирования построения XML-пакета
-		die();
+		// die();
 		
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $xml);
@@ -68,7 +68,7 @@ class Monexy {
 		$body = $body . $xml;
 		$body = $body . '</monexyApi>';
 		
-		//$body = urlencode($body);
+		$body = urlencode($body);
 		$body = $this->URL . $body;
 		
 		return $body;
@@ -88,7 +88,7 @@ class Monexy {
 	 * @param $amount
 	 * @param $amountType
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function paymentReqCorp($apiLogin, $apiSess, $orderId,
 							   $orderDesc, $payeeCard, $payeeCurrency,
@@ -124,7 +124,7 @@ class Monexy {
 	 * @param $apiSess
 	 * @param $paymentId
 	 * @param $paymentSms
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function paymentConf($apiLogin, $apiSess,
 								$paymentId, $paymentSms)
@@ -157,7 +157,7 @@ class Monexy {
 	 * @param $payeeCurrency
 	 * @param $verifyOId
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function transferApi($orderId, $orderDesc, $payeePhone,
 								$amount, $amountType, $payeeCurrency, 
@@ -185,7 +185,7 @@ class Monexy {
 	/*
 	 * Запрос статуса перевода по OrderID
 	 * @param $orderId
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function statusApi($orderId)
 	{
@@ -204,7 +204,7 @@ class Monexy {
 	/*
 	 * Запрос на авторизацию
 	 * @param $apiLogin
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function auth($apiLogin)
 	{
@@ -216,6 +216,7 @@ class Monexy {
 		);
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -224,7 +225,7 @@ class Monexy {
 	 * Запрос аутентификации
 	 * @param $apiLogin
 	 * @param $smsCode
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function login($apiLogin, $smsCode)
 	{
@@ -239,6 +240,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -249,7 +251,7 @@ class Monexy {
 	 * с использованием параметра {ApiSess|ApiBCode}
 	 * @param $apiLogin
 	 * @param $apiSess
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function balans($apiLogin, $apiSess)
 	{
@@ -261,6 +263,7 @@ class Monexy {
 		);
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -271,7 +274,7 @@ class Monexy {
 	 * без использования SMS
 	 * @param $apiLogin
 	 * @param $apiBCode
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function balansBcode($apiLogin, $apiBCode)
 	{
@@ -299,7 +302,7 @@ class Monexy {
 	 * @param $amount
 	 * @param $amountType
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function paymentReq($apiLogin, $apiSess, $orderId,
 							   $orderDesc, $payeeLogin, $payeeCurrency,
@@ -338,7 +341,7 @@ class Monexy {
 	 * @param $page
 	 * @param $listing
 	 * @param $currency
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function history($apiLogin, $apiSess, $dateFrom,
 							$dateTo, $page, $listing,
@@ -360,6 +363,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -371,7 +375,7 @@ class Monexy {
 	 * @param $amount
 	 * @param $vaucherType
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function vaucherApi($desc, $orderId, $amount, 
 							   $vaucherType, $status)
@@ -388,6 +392,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -404,7 +409,7 @@ class Monexy {
 	 * @param $payerCard
 	 * @param $payerPass
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function transfer($orderId, $payeeCurrency, $payerCurrency,
 							 $payeePhone, $amount, $amountType,
@@ -443,7 +448,7 @@ class Monexy {
 	 * @param $amountType
 	 * @param $payeeCurrency
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function transferCorp($orderId, $orderDesc, $payeeCard,
 								 $payerCard, $payerPass, $amount,
@@ -473,7 +478,7 @@ class Monexy {
 	 * Проверка баланса ваучера MoneXy
 	 * @param $cardNumber
 	 * @param $cardPass
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function balansCard($cardNumber, $cardPass)
 	{
@@ -499,6 +504,7 @@ class Monexy {
 	{
 		$queryType = 'balans-card-api-payee';
 		$xml = $this->xmlBody($queryType, false, NULL);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -507,11 +513,13 @@ class Monexy {
 	 * Баланс по корпоративному кошельку, который привязан к API
 	 * Распространитель
 	 * balans-card-api
+	 * @return SimpleXMLElement
 	 */
 	public function balansCardApi()
 	{
 		$queryType = 'balans-card-api';
 		$xml = $this->xmlBody($queryType, false, NULL);
+		$xml = $this->_request($xml);
 		
 		return $xml;
 	}
@@ -522,7 +530,7 @@ class Monexy {
 	 * @param $addDesc
 	 * @param $maxTime
 	 * @param $status
-	 * @return
+	 * @return SimpleXMLElement
 	 */
 	public function transferApiReturn($transId, $addDesc,
 									  $maxTime, $status)

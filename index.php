@@ -87,10 +87,12 @@ echo 'Запрос на авторизацию <br />';
 echo '<strong>auth</strong>';
 echo '<br />=============================<br /><br />';
 
-$apiLogin = '380986470007';
+$apiLogin = '+380986470007'; // + и 12 цифр
 
 $xml = $api->auth($apiLogin);
-echo $xml;
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
 */
 
 /*
@@ -98,11 +100,13 @@ echo 'Запрос аутентификации <br />';
 echo '<strong>login</strong>';
 echo '<br />=============================<br /><br />';
 
-$apiLogin = '380986470007';
-$smsCode = 3254;
+$apiLogin = '+380986470007'; // + и 12 цифр
+$smsCode = 63538;
 
 $xml = $api->login($apiLogin, $smsCode);
-echo $xml;
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
 */
 
 /*
@@ -110,11 +114,13 @@ echo 'Запрос получения баланса по пользовател
 echo '<strong>balans</strong>';
 echo '<br />=============================<br /><br />';
 
-$apiLogin = '380986470007';
-$apiSess = 'session';
+$apiLogin = '+380986470007'; // + и 12 цифр
+$apiSess = 'ee125c1bb735a31a7a4172af00857a0f';
 
 $xml = $api->balans($apiLogin, $apiSess);
-echo $xml;
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
 */
 
 /*
@@ -151,37 +157,41 @@ $xml = $api->paymentReq($apiLogin, $apiSess, $orderId,
 echo $xml;
 */
 
-/*
+
 echo 'Запрос истории операций <br />';
 echo '<strong>history</strong>';
 echo '<br />=============================<br /><br />';
 
-$apiLogin = '380986470007';
-$apiSess = 'session';
-$dateFrom = '20130101 000000';
-$dateTo = '20130103 235959';
-$page = 1;
-$listing = 2;
-$currency = 'UAH';
+$apiLogin = '+380986470007'; // + и 12 цифр
+$apiSess = 'ee125c1bb735a31a7a4172af00857a0f';
+$dateFrom = '20130101 000000'; // История операций начиная с даты
+$dateTo = '20130103 235959'; // История операций заканчивая датой
+$page = 1; // Номер страницы
+$listing = 10; // Кол-во на страницу
+$currency = 'UAH'; // История операций по счету указанной валюты
 
 $xml = $api->history($apiLogin, $apiSess, $dateFrom,
 		$dateTo, $page, $listing, $currency);
-echo $xml;
-*/
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
+
 
 /*
 echo 'Генерация ваучера MoneXy <br />';
 echo '<strong>vaucher-api</strong>';
 echo '<br />=============================<br /><br />';
 
-$desc = 'Vaucher 0.10';
-$orderId = 6;
-$amount = 0.05;
+$desc = 'Richweber Vaucher 0.02';
+$orderId = 2;
+$amount = 0.02;
 $vaucherType = 1;
 $status = 1;
 
 $xml = $api->vaucherApi($desc, $orderId, $amount, $vaucherType, $status);
-echo $xml;
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
 */
 
 /*
@@ -244,7 +254,9 @@ echo '<strong>balans-card-api-payee</strong>';
 echo '<br />=============================<br /><br />';
 
 $xml = $api->balansCardApiPayee();
-echo $xml;
+echo '<pre>';
+print_r($xml);
+echo '</pre>';
 
 echo '<br />=============================<br /><br />';
 
@@ -252,11 +264,13 @@ echo 'Баланс по корпоративному кошельку <strong>Р
 echo '<strong>balans-card-api</strong>';
 echo '<br />=============================<br /><br />';
 
-$xml = $api->balansCardApi();
-echo $xml;
+//$xml = $api->balansCardApi();
+//echo '<pre>';
+//print_r($xml);
+//echo '</pre>';
 */
 
-
+/*
 echo 'Запрос отмены операции <br />';
 echo '<strong>transfer-api-return</strong>';
 echo '<br />=============================<br /><br />';
@@ -268,5 +282,6 @@ $status = 0;
 
 $xml = $api->transferApiReturn($transId, $addDesc, $maxTime, $status);
 echo $xml;
+*/
 
 ?>
