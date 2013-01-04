@@ -462,6 +462,11 @@ class Monexy {
 				"PayeeCurrency" => $payeeCurrency,
 				"Status" => $status,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
@@ -478,6 +483,11 @@ class Monexy {
 				"CardNumber" => $cardNumber,
 				"CardPass" => $cardPass,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 	
 	/*
@@ -487,7 +497,10 @@ class Monexy {
 	 */
 	public function balansCardApiPayee()
 	{
-		//
+		$queryType = 'balans-card-api-payee';
+		$xml = $this->xmlBody($queryType, false, NULL);
+		
+		return $xml;
 	}
 	
 	/*
@@ -497,16 +510,10 @@ class Monexy {
 	 */
 	public function balansCardApi()
 	{
-		//
-	}
-	
-	/*
-	 * Проверка статуса платежа (создания ваучера) по уникальному OrderID
-	 * status-api
-	 */
-	public function statusApi2()
-	{
-		//
+		$queryType = 'balans-card-api';
+		$xml = $this->xmlBody($queryType, false, NULL);
+		
+		return $xml;
 	}
 	
 	/*
@@ -528,6 +535,11 @@ class Monexy {
 				"MaxTime" => $maxTime,
 				"Status" => $status,
 		);
+		
+		$xml = $this->tagOperation($data);
+		$xml = $this->xmlBody($queryType, false, $xml);
+		
+		return $xml;
 	}
 
 	

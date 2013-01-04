@@ -184,7 +184,7 @@ $xml = $api->vaucherApi($desc, $orderId, $amount, $vaucherType, $status);
 echo $xml;
 */
 
-
+/*
 echo 'Перевод с Ваучера MoneXy на кошелек пользователя <br />';
 echo '<strong>transfer</strong>';
 echo '<br />=============================<br /><br />';
@@ -203,6 +203,70 @@ $status = 1;
 $xml = $api->transfer($orderId, $payeeCurrency, $payerCurrency,
 		$payeePhone, $amount, $amountType, $orderDesc, 
 		$payerCard, $payerPass, $status);
+echo $xml;
+*/
+
+/*
+echo 'Перевод с Ваучера MoneXy на корпоративный кошелек <br />';
+echo '<strong>transfer</strong>';
+echo '<br />=============================<br /><br />';
+
+$orderId = 8;
+$orderDesc = 'Чайник No sl-6785';
+$payeeCard = '436220214474499';
+$payerCard = '436220214474499';
+$payerPass = 1234;
+$amount = 0.01;
+$amountType = 1;
+$payeeCurrency = 'UAH';
+$status = 1;
+
+$xml = $api->transferCorp($orderId, $orderDesc, $payeeCard,
+		$payerCard, $payerPass, $amount, $amountType, $payeeCurrency,$status);
+echo $xml;
+*/
+
+/*
+echo 'Проверка баланса ваучера MoneXy <br />';
+echo '<strong>balans-card</strong>';
+echo '<br />=============================<br /><br />';
+
+$cardNumber = '436220214474499';
+$cardPass = 1234;
+
+$xml = $api->balansCard($cardNumber, $cardPass);
+echo $xml;
+*/
+
+/*
+echo 'Баланс по корпоративному кошельку <strong>Торговец</strong> <br />';
+echo '<strong>balans-card-api-payee</strong>';
+echo '<br />=============================<br /><br />';
+
+$xml = $api->balansCardApiPayee();
+echo $xml;
+
+echo '<br />=============================<br /><br />';
+
+echo 'Баланс по корпоративному кошельку <strong>Распространитель</strong> <br />';
+echo '<strong>balans-card-api</strong>';
+echo '<br />=============================<br /><br />';
+
+$xml = $api->balansCardApi();
+echo $xml;
+*/
+
+
+echo 'Запрос отмены операции <br />';
+echo '<strong>transfer-api-return</strong>';
+echo '<br />=============================<br /><br />';
+
+$transId = 9;
+$addDesc = 'Описание причины отмены';
+$maxTime = 15;
+$status = 0;
+
+$xml = $api->transferApiReturn($transId, $addDesc, $maxTime, $status);
 echo $xml;
 
 ?>
