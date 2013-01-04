@@ -14,7 +14,7 @@ class Monexy {
 	/*
 	 * request to server
 	 */
-	public function _request($xml)
+	public function request($xml)
 	{
 		// Приостанавливаем выполнения запроса
 		// для тестирования построения XML-пакета
@@ -91,9 +91,8 @@ class Monexy {
 	 * @return SimpleXMLElement
 	 */
 	public function paymentReqCorp($apiLogin, $apiSess, $orderId,
-							   $orderDesc, $payeeCard, $payeeCurrency,
-							   $payerCurrency, $amount, $amountType,
-							   $status)
+			$orderDesc, $payeeCard, $payeeCurrency, $payerCurrency, 
+			$amount, $amountType, $status)
 	{
 		$queryType = 'payment-req';
 		
@@ -114,6 +113,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -126,8 +126,7 @@ class Monexy {
 	 * @param $paymentSms
 	 * @return SimpleXMLElement
 	 */
-	public function paymentConf($apiLogin, $apiSess,
-								$paymentId, $paymentSms)
+	public function paymentConf($apiLogin, $apiSess, $paymentId, $paymentSms)
 	{
 		$queryType = 'payment-conf';
 		
@@ -142,6 +141,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -160,8 +160,7 @@ class Monexy {
 	 * @return SimpleXMLElement
 	 */
 	public function transferApi($orderId, $orderDesc, $payeePhone,
-								$amount, $amountType, $payeeCurrency, 
-								$verifyOId, $status)
+			$amount, $amountType, $payeeCurrency, $verifyOId, $status)
 	{
 		$queryType = 'transfer-api';		
 		
@@ -178,6 +177,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -197,6 +197,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -216,7 +217,7 @@ class Monexy {
 		);
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -240,7 +241,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -263,7 +264,7 @@ class Monexy {
 		);
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -286,6 +287,7 @@ class Monexy {
 		);
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -305,9 +307,8 @@ class Monexy {
 	 * @return SimpleXMLElement
 	 */
 	public function paymentReq($apiLogin, $apiSess, $orderId,
-							   $orderDesc, $payeeLogin, $payeeCurrency,
-							   $payerCurrency, $amount, $amountType,
-							   $status)
+			$orderDesc, $payeeLogin, $payeeCurrency, $payerCurrency, 
+			$amount, $amountType, $status)
 	{
 		$queryType = 'payment-req';
 		
@@ -328,6 +329,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -343,9 +345,8 @@ class Monexy {
 	 * @param $currency
 	 * @return SimpleXMLElement
 	 */
-	public function history($apiLogin, $apiSess, $dateFrom,
-							$dateTo, $page, $listing,
-							$currency)
+	public function history($apiLogin, $apiSess, $dateFrom, $dateTo, 
+			$page, $listing, $currency)
 	{
 		$queryType = 'history';
 		
@@ -363,7 +364,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -377,8 +378,7 @@ class Monexy {
 	 * @param $status
 	 * @return SimpleXMLElement
 	 */
-	public function vaucherApi($desc, $orderId, $amount, 
-							   $vaucherType, $status)
+	public function vaucherApi($desc, $orderId, $amount, $vaucherType, $status)
 	{
 		$queryType = 'vaucher-api';
 		
@@ -392,7 +392,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -412,9 +412,8 @@ class Monexy {
 	 * @return SimpleXMLElement
 	 */
 	public function transfer($orderId, $payeeCurrency, $payerCurrency,
-							 $payeePhone, $amount, $amountType,
-							 $orderDesc, $payerCard, $payerPass,
-							 $status)
+			$payeePhone, $amount, $amountType, $orderDesc, $payerCard, 
+			$payerPass, $status)
 	{
 		$queryType = 'transfer';
 		
@@ -433,6 +432,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -451,8 +451,8 @@ class Monexy {
 	 * @return SimpleXMLElement
 	 */
 	public function transferCorp($orderId, $orderDesc, $payeeCard,
-								 $payerCard, $payerPass, $amount,
-								 $amountType, $payeeCurrency,$status)
+			$payerCard, $payerPass, $amount,
+			$amountType, $payeeCurrency,$status)
 	{
 		$queryType = 'transfer';
 		
@@ -470,6 +470,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -491,6 +492,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -504,7 +506,7 @@ class Monexy {
 	{
 		$queryType = 'balans-card-api-payee';
 		$xml = $this->xmlBody($queryType, false, NULL);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -519,7 +521,7 @@ class Monexy {
 	{
 		$queryType = 'balans-card-api';
 		$xml = $this->xmlBody($queryType, false, NULL);
-		$xml = $this->_request($xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}
@@ -532,8 +534,7 @@ class Monexy {
 	 * @param $status
 	 * @return SimpleXMLElement
 	 */
-	public function transferApiReturn($transId, $addDesc,
-									  $maxTime, $status)
+	public function transferApiReturn($transId, $addDesc, $maxTime, $status)
 	{
 		$queryType = 'transfer-api-return';
 		
@@ -546,6 +547,7 @@ class Monexy {
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
+		$xml = $this->request($xml);
 		
 		return $xml;
 	}

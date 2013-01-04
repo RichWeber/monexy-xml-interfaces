@@ -4,12 +4,14 @@
  */
 
 $MonexyMerchantID = '103218177'; # Идентификатор мерчанта
+//$MonexyMerchantID = '103251857'; # Идентификатор мерчанта RichWeber Emitent
 $MonexyMerchantInfoShopName = 'RichWeber'; # Описание мерчанта
+//$MonexyMerchantInfoShopName = 'RichWeber Emitent'; # Описание мерчанта
 $MerchantSecretKey = 'Kqc7nQYJcvjz'; # Secret Key
 
 $MonexyMerchantSum = '0.01'; # Сумма платежа
-$MonexyMerchantOrderId = 'm004'; # Идентификатор платежа
-$MonexyMerchantOrderDesc = 'Опллата товара № 459АК'; # Описание платежа
+$MonexyMerchantOrderId = 'm007'; # Идентификатор платежа
+$MonexyMerchantOrderDesc = 'Опллата товара № 462АК'; # Описание платежа
 
 $MonexyMerchantHash = md5($MonexyMerchantID . ';' 
 		. $MonexyMerchantOrderId . ';' 
