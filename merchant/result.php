@@ -10,9 +10,8 @@
  * 
  */
 
-$MonexyMerchantID = '103218177';
-//$MonexyMerchantID = '103251857'; # Идентификатор мерчанта RichWeber Emitent
-$MerchantSecretKey = 'Kqc7nQYJcvjz';
+$MonexyMerchantID = '1000000000';
+$MerchantSecretKey = 'password';
 
 /*
  * По идентификатору платежа S_POST['MonexyMerchantOrderId']
@@ -78,8 +77,8 @@ if (isset($_POST['MonexyMerchantID']) && $_POST['MonexyMerchantID'] == $MonexyMe
 // Обработка ошибок при прохождении проверок
 function sendError($error) {
 	$Name = "Monexy Merchant Error";
-	$email = "rbagatyi@yandex.ru";
-	$recipient = "rbagatyi@gmail.com";
+	$email = "mail@mydomen.com";
+	$recipient = "admin@mydomen.com";
 	$mail_body = $error;
 	$subject = "Monexy Merchant Error";
 	$header = "From: ". $Name . " <" . $email . ">\r\n";

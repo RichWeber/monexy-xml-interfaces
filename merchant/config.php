@@ -3,11 +3,9 @@
  * Укажите свои данные
  */
 
-$MonexyMerchantID = '103218177'; # Идентификатор мерчанта
-//$MonexyMerchantID = '103251857'; # Идентификатор мерчанта RichWeber Emitent
-$MonexyMerchantInfoShopName = 'RichWeber'; # Описание мерчанта
-//$MonexyMerchantInfoShopName = 'RichWeber Emitent'; # Описание мерчанта
-$MerchantSecretKey = 'Kqc7nQYJcvjz'; # Secret Key
+$MonexyMerchantID = '1000000000'; # Идентификатор мерчанта
+$MonexyMerchantInfoShopName = 'Name Merchant'; # Описание мерчанта
+$MerchantSecretKey = 'password'; # Secret Key
 
 $MonexyMerchantSum = '0.01'; # Сумма платежа
 $MonexyMerchantOrderId = 'm007'; # Идентификатор платежа
@@ -18,8 +16,8 @@ $MonexyMerchantHash = md5($MonexyMerchantID . ';'
 		. $MonexyMerchantSum . ';' 
 		. $MerchantSecretKey);
 
-$MonexyMerchantResultUrl = 'http://monexy.richweber.net/merchant/result.php'; # Result URL
-$MonexyMerchantSuccessUrl = 'http://monexy.richweber.net/merchant/success.php'; # Sucess URL
-$MonexyMerchantFailUrl = 'http://monexy.richweber.net/merchant/fail.php'; # Fail URL
+$MonexyMerchantResultUrl = 'http://mydomen.com/merchant/result.php'; # Result URL
+$MonexyMerchantSuccessUrl = 'http://mydomen.com/merchant/success.php'; # Sucess URL
+$MonexyMerchantFailUrl = 'http://mydomen.com/merchant/fail.php'; # Fail URL
 
 ?>

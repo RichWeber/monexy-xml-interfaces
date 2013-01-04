@@ -7,9 +7,9 @@
 class Monexy {
 
 	public $URL = 'https://www.monexy.com/xml/server.php?req=';
-	private $ApiName = 'testapirichweber'; # до 32 символов
+	private $ApiName = 'ApiName'; # до 32 символов
 	private $ApiHash = ''; # 40 символов
-	private $SecretKey = 'z80AhqYIuFP1';
+	private $SecretKey = 'password';
 	
 	/*
 	 * Отправляем запрос и ответ
