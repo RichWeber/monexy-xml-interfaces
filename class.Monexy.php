@@ -105,11 +105,11 @@ class Monexy {
 	{
 		$queryType = 'payment-req';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => $apiSess,
-		);
-		$data["Payment"] = array(
+		];
+		$data["Payment"] = [
 				"OrderId" => $orderId,
 				"OrderDesc" => $orderDesc,
 				"PayeeCard" => $payeeCard,
@@ -118,7 +118,7 @@ class Monexy {
 				"Amount" => $amount,
 				"AmountType" => $amountType,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
@@ -139,14 +139,14 @@ class Monexy {
 	{
 		$queryType = 'payment-conf';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => $apiSess,
-		);
-		$data["Payment"] = array(
+		];
+		$data["Payment"] = [
 				"PaymentId" => $paymentId,
 				"PaymentSms" => $paymentSms,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
@@ -173,7 +173,7 @@ class Monexy {
 	{
 		$queryType = 'transfer-api';		
 		
-		$data["Transfer"] = array(
+		$data["Transfer"] = [
 				"OrderId" => $orderId,
 				"OrderDesc" => $orderDesc,
 				"PayeePhone" => $payeePhone,
@@ -182,7 +182,7 @@ class Monexy {
 				"PayeeCurrency" => $payeeCurrency,
 				"VerifyOId" => $verifyOId,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -200,9 +200,9 @@ class Monexy {
 	{
 		$queryType = 'status-api';
 		
-		$data["Status"] = array(
+		$data["Status"] = [
 				"OrderId" => $orderId,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -220,10 +220,10 @@ class Monexy {
 	{
 		$queryType = 'auth';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => '',
-		);
+		];
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
 		$xml = $this->request($xml);
@@ -241,12 +241,12 @@ class Monexy {
 	{
 		$queryType = 'login';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
-		);
-		$data["Login"] = array(
+		];
+		$data["Login"] = [
 				"SmsCode" => $smsCode,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
@@ -267,10 +267,10 @@ class Monexy {
 	{
 		$queryType = 'balans';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => $apiSess,
-		);
+		];
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
 		$xml = $this->request($xml);
@@ -290,10 +290,10 @@ class Monexy {
 	{
 		$queryType = 'balans-bcode';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiBCode" => $apiBCode,
-		);
+		];
 		
 		$xml = $this->xmlBody($queryType, $addAuth, NULL);
 		$xml = $this->request($xml);
@@ -321,11 +321,11 @@ class Monexy {
 	{
 		$queryType = 'payment-req';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => $apiSess,
-		);
-		$data["Payment"] = array(
+		];
+		$data["Payment"] = [
 				"OrderId" => $orderId,
 				"OrderDesc" => $orderDesc,				
 				"PayeeLogin" => $payeeLogin,
@@ -334,7 +334,7 @@ class Monexy {
 				"Amount" => $amount,
 				"AmountType" => $amountType,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
@@ -359,17 +359,17 @@ class Monexy {
 	{
 		$queryType = 'history';
 		
-		$addAuth = array(
+		$addAuth = [
 				"ApiLogin" => $apiLogin,
 				"ApiSess" => $apiSess,
-		);
-		$data["History"] = array(
+		];
+		$data["History"] = [
 				"DateFrom" => $dateFrom,
 				"DateTo" => $dateTo,				
 				"Page" => $page,
 				"Listing" => $listing,
 				"Currency" => $currency,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, $addAuth, $xml);
@@ -391,13 +391,13 @@ class Monexy {
 	{
 		$queryType = 'vaucher-api';
 		
-		$data["Transfer"] = array(
+		$data["Transfer"] = [
 				"Desc" => $desc,
 				"OrderId" => $orderId,
 				"Amount" => $amount,
 				"VaucherType" => $vaucherType,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -426,7 +426,7 @@ class Monexy {
 	{
 		$queryType = 'transfer';
 		
-		$data["Transfer"] = array(
+		$data["Transfer"] = [
 				"OrderId" => $orderId,
 				"PayeeCurrency" => $payeeCurrency,
 				"PayerCurrency" => $payerCurrency,
@@ -437,7 +437,7 @@ class Monexy {
 				"PayerCard" => $payerCard,
 				"PayerPass" => $payerPass,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -465,7 +465,7 @@ class Monexy {
 	{
 		$queryType = 'transfer';
 		
-		$data["Transfer"] = array(
+		$data["Transfer"] = [
 				"OrderId" => $orderId,
 				"OrderDesc" => $orderDesc,
 				"PayeeCard" => $payeeCard,
@@ -475,7 +475,7 @@ class Monexy {
 				"AmountType" => $amountType,
 				"PayeeCurrency" => $payeeCurrency,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -494,10 +494,10 @@ class Monexy {
 	{
 		$queryType = 'balans-card';
 		
-		$data["Balans"] = array(
+		$data["Balans"] = [
 				"CardNumber" => $cardNumber,
 				"CardPass" => $cardPass,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
@@ -546,12 +546,12 @@ class Monexy {
 	{
 		$queryType = 'transfer-api-return';
 		
-		$data["Transfer"] = array(
+		$data["Transfer"] = [
 				"TransId" => $transId,
 				"AddDesc" => $addDesc,
 				"MaxTime" => $maxTime,
 				"Status" => $status,
-		);
+		];
 		
 		$xml = $this->tagOperation($data);
 		$xml = $this->xmlBody($queryType, false, $xml);
